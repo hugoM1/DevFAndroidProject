@@ -20,6 +20,10 @@ public class HeroesListAdapter extends RecyclerView.Adapter<HeroesListAdapter.He
     ArrayList<String> heroes;
     Context context;
 
+    /**
+     * @param context Context needed to access {@link android.view.LayoutInflater}
+     * @param heroes This heroes data will be showed in the list
+     * */
     public HeroesListAdapter(Context context, ArrayList<String> heroes) {
         this.heroes = heroes;
         this.context = context;

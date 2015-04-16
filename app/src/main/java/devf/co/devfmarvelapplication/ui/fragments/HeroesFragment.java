@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,18 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import devf.co.devfmarvelapplication.R;
+import devf.co.devfmarvelapplication.model.Hero;
+import devf.co.devfmarvelapplication.rest.MarvelApiClient;
+import devf.co.devfmarvelapplication.rest.models.HeroesListResponse;
 import devf.co.devfmarvelapplication.ui.adapters.HeroesListAdapter;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class HeroesFragment extends Fragment {
 
+    private static final String LOG_TAG = HeroesFragment.class.getCanonicalName();
     public Context CONTEXT;
 
     @InjectView(R.id.list_heroes)
@@ -49,6 +57,28 @@ public class HeroesFragment extends Fragment {
 
         initListHeroes();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MarvelApiClient.getInstance(CONTEXT)
+                .requestHeroesList(2, 0, new Callback<HeroesListResponse>() {
+                    @Override
+                    public void success(HeroesListResponse heroesListResponse, Response response) {
+                        //Only for debugging
+                        ArrayList<Hero> heroes = heroesListResponse.getHeroes();
+                        for(Hero hero: heroes) {
+                            Log.i(LOG_TAG, hero.toString());
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        error.printStackTrace();
+                    }
+                });
     }
 
     //================================================================================
