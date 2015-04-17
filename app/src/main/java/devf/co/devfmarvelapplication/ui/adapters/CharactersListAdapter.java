@@ -58,6 +58,11 @@ public class CharactersListAdapter extends RecyclerView.Adapter<CharactersListAd
         notifyDataSetChanged();
     }
 
+    public void addItemCollection(List<Character> characters) {
+        this.characters.addAll(characters);
+        notifyDataSetChanged();
+    }
+
     public class CharacterViewHolder extends RecyclerView.ViewHolder{
 
         @InjectView(R.id.img_character)

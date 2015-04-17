@@ -17,12 +17,13 @@ import devf.co.devfmarvelapplication.R;
 import devf.co.devfmarvelapplication.rest.MarvelApiClient;
 import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
 import devf.co.devfmarvelapplication.ui.adapters.CharactersListAdapter;
+import devf.co.devfmarvelapplication.ui.interfaces.EndlessRecyclerOnScrollListener;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class CharactersFragment extends Fragment {
+public class CharactersFragment extends Fragment{
 
     private static final String LOG_TAG = CharactersFragment.class.getCanonicalName();
     public Context CONTEXT;
@@ -62,7 +63,7 @@ public class CharactersFragment extends Fragment {
         super.onResume();
 
         MarvelApiClient.getInstance(CONTEXT)
-                .requestHeroesList(10, 50, new Callback<CharactersListResponse>() {
+                .requestHeroesList(20, 0, new Callback<CharactersListResponse>() {
                     @Override
                     public void success(CharactersListResponse charactersListResponse, Response response) {
                         adapter.updateList(charactersListResponse.getCharacters());
@@ -73,7 +74,9 @@ public class CharactersFragment extends Fragment {
                         error.printStackTrace();
                     }
                 });
+
     }
+
 
     //================================================================================
     //Init Methods
@@ -81,8 +84,26 @@ public class CharactersFragment extends Fragment {
     private void initListHeroes() {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL , false);
         mListHeroes.setLayoutManager(lm);
+        mListHeroes.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
+            @Override
+            public void onLoadMore(int current_page) {
+                MarvelApiClient.getInstance(CONTEXT)
+                        .requestHeroesList(20, current_page * 20, new Callback<CharactersListResponse>() {
+                            @Override
+                            public void success(CharactersListResponse charactersListResponse, Response response) {
+                                adapter.addItemCollection(charactersListResponse.getCharacters());
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                error.printStackTrace();
+                            }
+                        });
+            }
+        });
 
         adapter = new CharactersListAdapter(CONTEXT);
         mListHeroes.setAdapter(adapter);
     }
+
 }
