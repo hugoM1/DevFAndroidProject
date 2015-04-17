@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="220dp"
-    android:orientation="vertical"
-    android:layout_marginBottom="1dp">
+    android:layout_marginBottom="0.5dp"
+    android:orientation="vertical">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_character"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/test_hero" />
+        fresco:overlayImage="@color/overlay_image"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:placeholderImage="@drawable/test_hero"
+        fresco:placeholderImageScaleType="focusCrop"/>
 
     <TextView
         android:id="@+id/txt_character_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/img_character"
+        android:layout_centerVertical="true"
+        android:gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:padding="@dimen/standard_spacing"
-        android:text="Gambito"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="52sp"
+        android:maxLines="2"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package devf.co.devfmarvelapplication.model;
 
+import android.net.Uri;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -19,7 +21,7 @@ public class Character {
     String description;
 
     @Expose
-    String urlImage;
+    Uri urlImage;
 
     @Expose
     int availableComics;
@@ -54,14 +56,16 @@ public class Character {
      *
      * @return empty string if there is no image
      * */
-    private static String extractCharacterImgFromJson(JsonObject characterData) {
+    private static Uri extractCharacterImgFromJson(JsonObject characterData) {
         if(characterData.get(Constants.THUMBNAIL_KEY).isJsonNull())
-            return "";
+            return Uri.EMPTY;
         // First obtain the image url and then obtain the extension of that image
-        return characterData.get(Constants.THUMBNAIL_KEY).getAsJsonObject()
+        String imgUrl = characterData.get(Constants.THUMBNAIL_KEY).getAsJsonObject()
                 .get(Constants.PATH_KEY).getAsString() + "." +
                 characterData.get(Constants.THUMBNAIL_KEY).getAsJsonObject()
                 .get(Constants.EXTENSION_KEY).getAsString();
+
+        return Uri.parse(imgUrl);
     }
 
     /**
@@ -104,11 +108,11 @@ public class Character {
         this.description = description;
     }
 
-    public String getUrlImage() {
+    public Uri getUrlImage() {
         return urlImage;
     }
 
-    public void setUrlImage(String urlImage) {
+    public void setUrlImage(Uri urlImage) {
         this.urlImage = urlImage;
     }
 

@@ -30,7 +30,7 @@ public class CharactersListResponseDeserializer implements JsonDeserializer<Char
         response.setOffset(data.get(Constants.OFFSET_KEY).getAsInt());
 
         JsonArray charactersArray = data.getAsJsonArray(Constants.RESULTS_KEY);
-        response.setHeroes(extractCharactersFromJson(charactersArray));
+        response.setCharacters(extractCharactersFromJson(charactersArray));
 
         return response;
     }

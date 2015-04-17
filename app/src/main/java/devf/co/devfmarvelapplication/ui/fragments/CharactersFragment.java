@@ -7,17 +7,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import devf.co.devfmarvelapplication.R;
-import devf.co.devfmarvelapplication.model.Character;
 import devf.co.devfmarvelapplication.rest.MarvelApiClient;
 import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
 import devf.co.devfmarvelapplication.ui.adapters.CharactersListAdapter;
@@ -33,6 +29,8 @@ public class CharactersFragment extends Fragment {
 
     @InjectView(R.id.list_heroes)
     RecyclerView mListHeroes;
+
+    CharactersListAdapter adapter;
 
     public CharactersFragment() {
         // Required empty public constructor
@@ -67,11 +65,7 @@ public class CharactersFragment extends Fragment {
                 .requestHeroesList(10, 50, new Callback<CharactersListResponse>() {
                     @Override
                     public void success(CharactersListResponse charactersListResponse, Response response) {
-                        //Only for debugging
-                        ArrayList<Character> heroes = charactersListResponse.getHeroes();
-                        for(Character character : heroes) {
-                            Log.i(LOG_TAG, character.toString());
-                        }
+                        adapter.updateList(charactersListResponse.getCharacters());
                     }
 
                     @Override
@@ -88,14 +82,7 @@ public class CharactersFragment extends Fragment {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL , false);
         mListHeroes.setLayoutManager(lm);
 
-        //Todo: remove this section
-        ArrayList<String> heroes = new ArrayList<>();
-        heroes.add("1");
-        heroes.add("2");
-        heroes.add("3");
-        heroes.add("4");
-
-        CharactersListAdapter adapter = new CharactersListAdapter(CONTEXT, heroes);
+        adapter = new CharactersListAdapter(CONTEXT);
         mListHeroes.setAdapter(adapter);
     }
 }

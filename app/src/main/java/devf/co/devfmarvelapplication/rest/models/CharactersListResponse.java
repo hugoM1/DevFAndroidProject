@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import devf.co.devfmarvelapplication.model.Character;
 import devf.co.devfmarvelapplication.rest.Constants;
@@ -24,7 +25,7 @@ public class CharactersListResponse {
     int offset;
 
     @Expose
-    ArrayList<Character> heroes;
+    List<Character> characters;
 
     public int getCode() {
         return code;
@@ -50,12 +51,12 @@ public class CharactersListResponse {
         this.offset = offset;
     }
 
-    public ArrayList<Character> getHeroes() {
-        return heroes;
+    public List<Character> getCharacters() {
+        return characters;
     }
 
-    public void setHeroes(ArrayList<Character> heroes) {
-        this.heroes = heroes;
+    public void setCharacters(ArrayList<Character> characters) {
+        this.characters = characters;
     }
 }
 

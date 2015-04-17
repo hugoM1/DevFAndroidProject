@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import devf.co.devfmarvelapplication.ui.fragments.CharactersFragment;
 
 public class MainActivity extends ActionBarActivity {
@@ -13,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fresco.initialize(this);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.main_container, new CharactersFragment())
