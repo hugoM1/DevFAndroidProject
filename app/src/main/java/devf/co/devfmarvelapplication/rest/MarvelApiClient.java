@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import devf.co.devfmarvelapplication.rest.models.HeroesListResponse;
+import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -33,7 +33,7 @@ public class MarvelApiClient {
 
         //Build the response parser
         Gson gsonConf = new GsonBuilder()
-                .registerTypeAdapter(HeroesListResponse.class , new HeroesListResponseDeserializer())
+                .registerTypeAdapter(CharactersListResponse.class , new CharactersListResponseDeserializer())
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
@@ -59,7 +59,7 @@ public class MarvelApiClient {
      * @param offset Skip the specified number of heroes in the result set.
      * @param callback the interface to communicate the response
      * */
-    public void requestHeroesList (int limit, int offset, Callback<HeroesListResponse> callback){
+    public void requestHeroesList (int limit, int offset, Callback<CharactersListResponse> callback){
         Long ts = UtilMethods.generateTimeStamp();
         String hash = UtilMethods.generateHash(ts);
 

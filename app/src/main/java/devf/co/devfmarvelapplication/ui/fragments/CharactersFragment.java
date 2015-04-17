@@ -17,24 +17,24 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import devf.co.devfmarvelapplication.R;
-import devf.co.devfmarvelapplication.model.Hero;
+import devf.co.devfmarvelapplication.model.Character;
 import devf.co.devfmarvelapplication.rest.MarvelApiClient;
-import devf.co.devfmarvelapplication.rest.models.HeroesListResponse;
-import devf.co.devfmarvelapplication.ui.adapters.HeroesListAdapter;
+import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
+import devf.co.devfmarvelapplication.ui.adapters.CharactersListAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class HeroesFragment extends Fragment {
+public class CharactersFragment extends Fragment {
 
-    private static final String LOG_TAG = HeroesFragment.class.getCanonicalName();
+    private static final String LOG_TAG = CharactersFragment.class.getCanonicalName();
     public Context CONTEXT;
 
     @InjectView(R.id.list_heroes)
     RecyclerView mListHeroes;
 
-    public HeroesFragment() {
+    public CharactersFragment() {
         // Required empty public constructor
     }
 
@@ -64,13 +64,13 @@ public class HeroesFragment extends Fragment {
         super.onResume();
 
         MarvelApiClient.getInstance(CONTEXT)
-                .requestHeroesList(2, 0, new Callback<HeroesListResponse>() {
+                .requestHeroesList(10, 50, new Callback<CharactersListResponse>() {
                     @Override
-                    public void success(HeroesListResponse heroesListResponse, Response response) {
+                    public void success(CharactersListResponse charactersListResponse, Response response) {
                         //Only for debugging
-                        ArrayList<Hero> heroes = heroesListResponse.getHeroes();
-                        for(Hero hero: heroes) {
-                            Log.i(LOG_TAG, hero.toString());
+                        ArrayList<Character> heroes = charactersListResponse.getHeroes();
+                        for(Character character : heroes) {
+                            Log.i(LOG_TAG, character.toString());
                         }
                     }
 
@@ -95,7 +95,7 @@ public class HeroesFragment extends Fragment {
         heroes.add("3");
         heroes.add("4");
 
-        HeroesListAdapter adapter = new HeroesListAdapter(CONTEXT, heroes);
+        CharactersListAdapter adapter = new CharactersListAdapter(CONTEXT, heroes);
         mListHeroes.setAdapter(adapter);
     }
 }

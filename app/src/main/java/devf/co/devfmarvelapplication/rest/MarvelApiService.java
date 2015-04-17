@@ -1,6 +1,6 @@
 package devf.co.devfmarvelapplication.rest;
 
-import devf.co.devfmarvelapplication.rest.models.HeroesListResponse;
+import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -13,7 +13,7 @@ public interface MarvelApiService {
                                   @Query(Constants.API_KEY_PARAM) String apiKey,
                                   @Query(Constants.TS_PARAM) long ts,
                                   @Query(Constants.HASH_PARAM) String hash,
-                                   Callback<HeroesListResponse> callback);
+                                   Callback<CharactersListResponse> callback);
 
 
 }

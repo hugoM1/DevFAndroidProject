@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import devf.co.devfmarvelapplication.model.Hero;
+import devf.co.devfmarvelapplication.model.Character;
 import devf.co.devfmarvelapplication.rest.Constants;
 
 /**
  * This class contains the structure of the response for the
  * {@link devf.co.devfmarvelapplication.rest.MarvelApiService#requestHeroesList(int, int, String, long, String, retrofit.Callback)}
  * */
-public class HeroesListResponse {
+public class CharactersListResponse {
     @SerializedName(Constants.CODE_KEY)
     int code;
 
@@ -24,7 +24,7 @@ public class HeroesListResponse {
     int offset;
 
     @Expose
-    ArrayList<Hero> heroes;
+    ArrayList<Character> heroes;
 
     public int getCode() {
         return code;
@@ -50,11 +50,11 @@ public class HeroesListResponse {
         this.offset = offset;
     }
 
-    public ArrayList<Hero> getHeroes() {
+    public ArrayList<Character> getHeroes() {
         return heroes;
     }
 
-    public void setHeroes(ArrayList<Hero> heroes) {
+    public void setHeroes(ArrayList<Character> heroes) {
         this.heroes = heroes;
     }
 }
