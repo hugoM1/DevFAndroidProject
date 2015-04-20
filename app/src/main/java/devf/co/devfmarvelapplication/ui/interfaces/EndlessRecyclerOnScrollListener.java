@@ -2,7 +2,8 @@ package devf.co.devfmarvelapplication.ui.interfaces;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import devf.co.devfmarvelapplication.ui.adapters.CharactersListAdapter;
 
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
     public static String TAG = EndlessRecyclerOnScrollListener.class.getSimpleName();
@@ -25,8 +26,9 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         super.onScrolled(recyclerView, dx, dy);
 
         visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = mLinearLayoutManager.getItemCount();
+        totalItemCount = ((CharactersListAdapter)recyclerView.getAdapter()).getCharacterItemsCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+
 
         if (loading) {
             if (totalItemCount > previousTotal) {
@@ -35,22 +37,16 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
             }
         }
 
-        Log.i(TAG, "Total item count:" + totalItemCount); //20
-        Log.i(TAG, "Visible item count:" + visibleItemCount);//3
-        Log.i(TAG, "First item visible:" + firstVisibleItem);//11
-        Log.i(TAG, "Loading:" + loading);
+        if (!loading && ((totalItemCount - visibleItemCount)
+                <= (firstVisibleItem + visibleThreshold))) {
 
+            loading = true;
 
-        if (!loading && ((totalItemCount - visibleItemCount) //20 - 3 = 17
-                <= (firstVisibleItem + visibleThreshold))) { //3 + 10= 13
-            // End has been reached
-            Log.i(TAG, "On load more");
             // Do something
             current_page++;
 
             onLoadMore(current_page);
 
-            loading = true;
         }
     }
 
