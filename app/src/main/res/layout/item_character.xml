@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="220dp"
     android:layout_marginBottom="0.5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/itemMain">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_character"

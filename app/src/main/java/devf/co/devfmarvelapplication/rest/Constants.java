@@ -29,8 +29,13 @@ public class Constants {
     public static final String STORIES_KEY = "stories";
     public static final String AVAILABLE_KEY = "available";
 
+    // This constants are the key for each hero character
+    public static final String HERO_URL_IMAGE = "heroImage";
+    public static final String HERO_NAME = "heroName";
+    public static final String HERO_DESC = "heroDesc";
+
     //URLs for requests
     public static final String MAIN_URL = "http://gateway.marvel.com:80/v1/public";
     public static final String HEROES_URL = "/characters";
-
+    public static final String HERO_DETAIL_URL = "/characters/%s"; //%s -> characterId
 }

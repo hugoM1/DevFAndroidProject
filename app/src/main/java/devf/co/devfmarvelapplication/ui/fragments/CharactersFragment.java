@@ -22,7 +22,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class CharactersFragment extends Fragment {
+public class CharactersFragment extends Fragment{
 
     private static final String LOG_TAG = CharactersFragment.class.getCanonicalName();
     public Context CONTEXT;
@@ -61,6 +61,10 @@ public class CharactersFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        getMarvelApiInfo();
+    }
+
+    private void getMarvelApiInfo(){
         MarvelApiClient.getInstance(CONTEXT)
                 .requestHeroesList(10, 50, new Callback<CharactersListResponse>() {
                     @Override
