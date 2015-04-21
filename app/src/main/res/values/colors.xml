@@ -6,4 +6,6 @@
     <color name="text">#424242</color>
     <color name="white">#ffeeeeee</color>
     <color name="overlay_image">#a20e0e0e</color>
+    <color name="back_navigation_select">#cccccc</color>
+
 </resources>
