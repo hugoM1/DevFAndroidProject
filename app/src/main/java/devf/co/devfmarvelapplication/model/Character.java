@@ -1,6 +1,7 @@
 package devf.co.devfmarvelapplication.model;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

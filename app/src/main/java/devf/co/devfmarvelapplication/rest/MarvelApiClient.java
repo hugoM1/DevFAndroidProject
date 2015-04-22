@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import devf.co.devfmarvelapplication.rest.models.CharacterDetailResponse;
 import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -34,6 +35,7 @@ public class MarvelApiClient {
         //Build the response parser
         Gson gsonConf = new GsonBuilder()
                 .registerTypeAdapter(CharactersListResponse.class , new CharactersListResponseDeserializer())
+                .registerTypeAdapter(CharacterDetailResponse.class, new CharacterDetailResponseDeserializer())
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
@@ -69,5 +71,16 @@ public class MarvelApiClient {
                                           ts,
                                           hash,
                                           callback);
+    }
+
+    public void requestHeroDetail(String characterId, Callback<CharacterDetailResponse> callback){
+        Long ts = UtilMethods.generateTimeStamp();
+        String hash = UtilMethods.generateHash(ts);
+
+        getApiService().requestHeroDetail(
+                characterId,
+                Constants.API_PUBLIC_KEY,
+                ts,
+                hash, callback);
     }
 }

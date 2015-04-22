@@ -1,5 +1,6 @@
 package devf.co.devfmarvelapplication.ui;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,9 @@ import devf.co.devfmarvelapplication.ui.fragments.CharactersFragment;
 
 public class CharacterDetailActivity extends ActionBarActivity {
 
+    public final static int HERO_DETAIL_FRAGMENT = 0;
+    public final static String HERO_DETAIL_FRAGMENT_TAG = "detailFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +23,23 @@ public class CharacterDetailActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             savedInstanceState = getIntent().getExtras();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.detailContainer, CharacterDetailFragment.getInstance(savedInstanceState))
-                    .commit();
+            fragmentSwitcher(savedInstanceState.getInt(HERO_DETAIL_FRAGMENT_TAG), savedInstanceState);
         }
+    }
+
+    private void fragmentSwitcher(int fragmentId, Bundle args){
+
+        switch (fragmentId){
+            case HERO_DETAIL_FRAGMENT:
+                setFragment(CharacterDetailFragment.getInstance(args), HERO_DETAIL_FRAGMENT_TAG);
+            break;
+        }
+    }
+
+    private void setFragment(Fragment wich, String tag){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.detailContainer, wich, tag)
+                .commit();
     }
 
     @Override

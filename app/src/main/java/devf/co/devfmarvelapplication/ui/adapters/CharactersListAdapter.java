@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,16 @@ import devf.co.devfmarvelapplication.R;
 import devf.co.devfmarvelapplication.model.Character;
 import devf.co.devfmarvelapplication.nav.NavigationHelper;
 import devf.co.devfmarvelapplication.rest.Constants;
+import devf.co.devfmarvelapplication.ui.CharacterDetailActivity;
+import devf.co.devfmarvelapplication.ui.fragments.CharacterDetailFragment;
 
 public class CharactersListAdapter extends
         RecyclerView.Adapter<CharactersListAdapter.CharacterViewHolder>{
 
     List <Character> characters = Collections.EMPTY_LIST;
     Context context;
+    private String noneContent = "None";
+    private int DETAIL_FRAGMENT_ID = 0;
 
     /**
      * @param context Context needed to access {@link android.view.LayoutInflater}
@@ -54,7 +59,12 @@ public class CharactersListAdapter extends
         bundle.putString(Constants.HERO_URL_IMAGE, String.valueOf(currentCharacter.getUrlImage()));
         bundle.putString(Constants.ID_KEY, String.valueOf(currentCharacter.getId()));
         bundle.putString(Constants.HERO_NAME, currentCharacter.getName());
-        bundle.putString(Constants.HERO_DESC, currentCharacter.getDescription());
+        bundle.putInt(CharacterDetailActivity.HERO_DETAIL_FRAGMENT_TAG, DETAIL_FRAGMENT_ID);
+        if (currentCharacter.getDescription().length() > 0) {
+            bundle.putString(Constants.HERO_DESC, currentCharacter.getDescription());
+        } else {
+            bundle.putString(Constants.HERO_DESC,noneContent );
+        }
 
         viewHolder.item.setOnClickListener((View v) ->{
             NavigationHelper.startCharacterDetail(((ActionBarActivity) context), bundle);
