@@ -11,6 +11,7 @@ public class Constants {
     public static final String OFFSET_PARAM = "offset" ;
     public static final String TS_PARAM = "ts";
     public static final String HASH_PARAM = "hash";
+    public static final int CHARACTERS_LIMIT = 20;
 
     //This constants are the key for each object found in a JSON response
     public static final String CODE_KEY = "code";
@@ -32,5 +33,6 @@ public class Constants {
     //URLs for requests
     public static final String MAIN_URL = "http://gateway.marvel.com:80/v1/public";
     public static final String HEROES_URL = "/characters";
+
 
 }

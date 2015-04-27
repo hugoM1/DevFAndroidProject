@@ -83,27 +83,18 @@ public class CharactersFragment extends Fragment{
     //================================================================================
     private void initListHeroes() {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL , false);
+        adapter = new CharactersListAdapter(CONTEXT);
+
         mListHeroes.setLayoutManager(lm);
+        mListHeroes.setAdapter(adapter);
         mListHeroes.setOnScrollListener(new EndlessRecyclerOnScrollListener(lm) {
             @Override
             public void onLoadMore(int current_page) {
-                MarvelApiClient.getInstance(CONTEXT)
-                        .requestHeroesList(20, current_page * 20, new Callback<CharactersListResponse>() {
-                            @Override
-                            public void success(CharactersListResponse charactersListResponse, Response response) {
-                                adapter.addItemCollection(charactersListResponse.getCharacters());
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-                                error.printStackTrace();
-                            }
-                        });
+                adapter.requestForMoreCharacters();
             }
         });
 
-        adapter = new CharactersListAdapter(CONTEXT);
-        mListHeroes.setAdapter(adapter);
+
     }
 
 }
