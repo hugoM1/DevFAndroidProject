@@ -22,7 +22,7 @@
             android:layout_height="160dp"
             fresco:backgroundImage="@android:color/white"
             fresco:actualImageScaleType="focusCrop"
-            fresco:placeholderImage="@drawable/test_comic"
+            fresco:placeholderImage="@drawable/test_comic_2"
             fresco:placeholderImageScaleType="centerInside" />
 
         <TextView
