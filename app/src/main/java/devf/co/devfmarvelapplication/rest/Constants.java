@@ -11,6 +11,7 @@ public class Constants {
     public static final String OFFSET_PARAM = "offset" ;
     public static final String TS_PARAM = "ts";
     public static final String HASH_PARAM = "hash";
+    public static final int CHARACTERS_LIMIT = 20;
 
     //This constants are the key for each object found in a JSON response
     public static final String CODE_KEY = "code";
@@ -42,4 +43,6 @@ public class Constants {
     public static final String HEROES_URL = "/characters";
     public static final String HERO_DETAIL_URL = "/characters/{id}"; //id -> characterId
     public static final String HERO_COMICS_URL = "/characters/{id}/series"; //id -> character series id
+
+
 }
