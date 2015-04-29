@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -25,19 +24,19 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static java.util.Collections.*;
+import static java.util.Collections.EMPTY_LIST;
 
 public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_CHARACTER = 0;
     private final int VIEW_PROGRESS = 1;
 
-    List <Character> characters = EMPTY_LIST;
+    List<Character> characters = EMPTY_LIST;
     Context context;
 
     /**
      * @param context Context needed to access {@link android.view.LayoutInflater}
-     * */
+     */
     public CharactersListAdapter(Context context) {
         this.context = context;
     }
@@ -45,19 +44,17 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        return characters.get(position)!=null? VIEW_CHARACTER : VIEW_PROGRESS;
+        return characters.get(position) != null ? VIEW_CHARACTER : VIEW_PROGRESS;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        if(viewType == VIEW_CHARACTER) {
+        if (viewType == VIEW_CHARACTER) {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_character, viewGroup, false);
 
             return new CharacterViewHolder(itemView);
-        }
-
-        else {
+        } else {
             View itemView = LayoutInflater.from(context)
                     .inflate(R.layout.item_progress, viewGroup, false);
 
@@ -67,10 +64,10 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if(viewHolder instanceof CharacterViewHolder) {
+        if (viewHolder instanceof CharacterViewHolder) {
             Character currentCharacter = characters.get(position);
-            ((CharacterViewHolder)viewHolder).setImg(currentCharacter.getUrlImage());
-            ((CharacterViewHolder)viewHolder).setName(currentCharacter.getName());
+            ((CharacterViewHolder) viewHolder).setImg(currentCharacter.getUrlImage());
+            ((CharacterViewHolder) viewHolder).setName(currentCharacter.getName());
         }
     }
 
@@ -85,17 +82,19 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     /**
      * When we load more characters, a {@link devf.co.devfmarvelapplication.ui.adapters.CharactersListAdapter.ProgressViewHolder} is added
      * The {@link devf.co.devfmarvelapplication.ui.interfaces.EndlessRecyclerOnScrollListener} needs the number of real items  in the list.
-     * */
-    public int getCharacterItemsCount (){
+     */
+    public int getCharacterItemsCount() {
         if (isProgressViewVisible())
             return characters.size() - 1;
 
         return characters.size();
     }
+
     /**
      * Replace the current adapter data and replace it with a new collection.
+     *
      * @param characters New {@link devf.co.devfmarvelapplication.model.Character} collection
-     * */
+     */
     public void updateList(List<Character> characters) {
         this.characters = characters;
         notifyDataSetChanged();
@@ -103,8 +102,9 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     /**
      * Add a bunch of items to the current characters list
+     *
      * @param characters items to add
-     * */
+     */
     public void addItemCollection(List<Character> characters) {
         this.characters.addAll(characters);
         notifyDataSetChanged();
@@ -113,8 +113,8 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     /**
      * Make a request to the Marvel API to load 20 more characters
      * The offset for the request is defined by {@link #getItemCount()}
-     * */
-    public void requestForMoreCharacters (){
+     */
+    public void requestForMoreCharacters() {
         showOnLoadViewHolder();
         MarvelApiClient.getInstance(context)
                 .requestHeroesList(Constants.CHARACTERS_LIMIT, getCharacterItemsCount(), new Callback<CharactersListResponse>() {
@@ -140,7 +140,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return characters.contains(null);
     }
 
-    public class CharacterViewHolder extends RecyclerView.ViewHolder{
+    public class CharacterViewHolder extends RecyclerView.ViewHolder {
 
         @InjectView(R.id.img_character)
         SimpleDraweeView imgCharacter;
@@ -150,20 +150,20 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public CharacterViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this,itemView);
+            ButterKnife.inject(this, itemView);
         }
 
         public void setImg(Uri urlImage) {
-            if(!urlImage.equals(Uri.EMPTY))
+            if (!urlImage.equals(Uri.EMPTY))
                 imgCharacter.setImageURI(urlImage);
         }
 
-        public void setName(String name){
+        public void setName(String name) {
             txtName.setText(name);
         }
     }
 
-    public class ProgressViewHolder extends RecyclerView.ViewHolder{
+    public class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressViewHolder(View itemView) {
             super(itemView);
         }
