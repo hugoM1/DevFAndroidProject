@@ -7,13 +7,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import devf.co.devfmarvelapplication.ui.fragments.CharactersFragment;
 import devf.co.devfmarvelapplication.ui.fragments.ComicsFragment;
 import devf.co.devfmarvelapplication.ui.fragments.NavigationDrawerFragment;
-import devf.co.devfmarvelapplication.ui.fragments.SeriesFragment;
+import devf.co.devfmarvelapplication.ui.fragments.CreatorsFragment;
 
 public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -21,23 +24,29 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     private CharSequence mTitle;
     private int mCurrentSelectedPositionpPresent = -1;
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout drawerLayoutND;
+
+    @InjectView(R.id.navigation_drawer)
+    View mFragmentContainerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.inject(this);
         Fresco.initialize(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        mNavigationDrawerFragment.setUp(mFragmentContainerView, drawerLayoutND, toolbar);
     }
 
 
@@ -60,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                     fragment = new ComicsFragment();
                     break;
                 case 2:
-                    fragment = new SeriesFragment();
+                    fragment = new CreatorsFragment();
                     break;
             }
 

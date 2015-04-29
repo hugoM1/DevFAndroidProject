@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import devf.co.devfmarvelapplication.R;
 import devf.co.devfmarvelapplication.model.ItemOptionNavDra;
 
@@ -20,6 +22,12 @@ public class NavigationDrawerAdapter extends ArrayAdapter<ItemOptionNavDra> {
 
     private List<ItemOptionNavDra> itemOptionNavDras;
     private LayoutInflater layoutInflater;
+
+    @InjectView(R.id.imageViewIconContent)
+    ImageView imageViewIcon;
+
+    @InjectView(R.id.textViewContentTitle)
+    TextView textView;
 
 
     public NavigationDrawerAdapter(Context context, List<ItemOptionNavDra> itemOptionNavDras) {
@@ -33,9 +41,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter<ItemOptionNavDra> {
 
         View view = layoutInflater.inflate(R.layout.item_navigation_drawer, parent, false);
 
-        ImageView imageViewIcon = (ImageView) view.findViewById(R.id.imageViewIconContent);
+        ButterKnife.inject(this, view);
+
         imageViewIcon.setImageResource(itemOptionNavDras.get(position).getIdIcon());
-        TextView textView = (TextView) view.findViewById(R.id.textViewContentTitle);
         textView.setText(itemOptionNavDras.get(position).getIdText());
 
         return view;
