@@ -112,7 +112,6 @@ public class NavigationDrawerFragment extends Fragment {
         this.mFragmentContainerView = mFragmentContainerView;
         this.mDrawerLayout = drawerLayout;
 
-
         enableHomeButton();
 
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

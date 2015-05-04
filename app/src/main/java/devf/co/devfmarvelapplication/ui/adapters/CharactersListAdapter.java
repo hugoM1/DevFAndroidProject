@@ -62,7 +62,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             return new CharacterViewHolder(itemView);
         } else {
             View itemView = LayoutInflater.from(context)
-                    .inflate(R.layout.item_progress, viewGroup, false);
+                    .inflate(R.layout.item_character_progress, viewGroup, false);
 
             return new ProgressViewHolder(itemView);
         }
@@ -178,6 +178,8 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
+
+
 
         public void setImg(Uri urlImage) {
             if (!urlImage.equals(Uri.EMPTY))

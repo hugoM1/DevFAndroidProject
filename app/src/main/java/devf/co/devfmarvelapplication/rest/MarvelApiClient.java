@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import devf.co.devfmarvelapplication.rest.models.CharacterDetailResponse;
 import devf.co.devfmarvelapplication.rest.models.CharactersListResponse;
+import devf.co.devfmarvelapplication.rest.models.ComicsListResponse;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
@@ -36,12 +37,13 @@ public class MarvelApiClient {
         Gson gsonConf = new GsonBuilder()
                 .registerTypeAdapter(CharactersListResponse.class , new CharactersListResponseDeserializer())
                 .registerTypeAdapter(CharacterDetailResponse.class, new CharacterDetailResponseDeserializer())
+                .registerTypeAdapter(ComicsListResponse.class, new ComicsListResponseDeserializer())
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         //Retrofit adapter to make requests
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(Constants.MAIN_URL)
                 .setConverter(new GsonConverter(gsonConf))
                 .build();
@@ -82,5 +84,18 @@ public class MarvelApiClient {
                 Constants.API_PUBLIC_KEY,
                 ts,
                 hash, callback);
+    }
+
+
+    public void requestComicsList (int limit, int offset, Callback<ComicsListResponse> callback){
+        Long ts = UtilMethods.generateTimeStamp();
+        String hash = UtilMethods.generateHash(ts);
+
+        getApiService().requestComicsList(limit,
+                offset,
+                Constants.API_PUBLIC_KEY,
+                ts,
+                hash,
+                callback);
     }
 }

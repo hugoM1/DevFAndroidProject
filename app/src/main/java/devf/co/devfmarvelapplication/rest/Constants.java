@@ -32,6 +32,9 @@ public class Constants {
     public static final String COMIC_TITLE_KEY = "title";
     public static final String COMIC_URLS_KEY = "urls";
     public static final String COMIC_URL_KEY= "url";
+    public static final String COMIC_ISSUE_KEY = "issueNumber";
+    public static final String COMIC_PAGES_KEY = "pageCount";
+
 
     // This constants are the key for each hero character
     public static final String HERO_URL_IMAGE = "heroImage";
@@ -43,6 +46,7 @@ public class Constants {
     public static final String HEROES_URL = "/characters";
     public static final String HERO_DETAIL_URL = "/characters/{id}"; //id -> characterId
     public static final String HERO_COMICS_URL = "/characters/{id}/series"; //id -> character series id
+    public static final String COMICS_URL = "/comics"; //id -> character series id
 
 
 }
